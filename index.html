@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Weather App</title>
+  <style>
+    /* Body style with smooth background transition */
+    body {
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      transition: background 0.5s ease; /* Smooth background change */
+    }
+
+    /* Card container style */
+    .weather-card {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      padding: 30px;
+      width: 350px;
+      text-align: center;
+    }
+
+    /* Input box styling */
+    input {
+      width: 80%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    /* Button styling */
+    button {
+      padding: 10px 20px;
+      border: none;
+      background: #66a6ff;
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background: #5591e6;
+    }
+
+    /* Weather result container */
+    .result {
+      margin-top: 20px;
+    }
+
+    /* Weather icon size */
+    .weather-icon {
+      width: 80px;
+      height: 80px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="weather-card">
+    <h2>🌤 Dynamic Weather App</h2>
+
+    <!-- Input for city name -->
+    <input type="text" id="cityInput" placeholder="Enter city name" />
+
+    <!-- Button to trigger weather fetch -->
+    <button onclick="getWeather()">Get Weather</button>
+
+    <!-- Container to display weather results -->
+    <div id="weatherResult" class="result"></div>
+  </div>
+
+  <script>
+    /**
+     * Fetch weather data from OpenWeatherMap API
+     * @param {string} cityName - Optional city name for fetch (used when clicking dynamically)
+     */
+    async function getWeather(cityName) {
+      // Get city from input box or from parameter
+      const city = cityName || document.getElementById('cityInput').value.trim();
+
+      if (!city) {
+        alert("Please enter a city name!");
+        return;
+      }
+
+      // Your OpenWeatherMap API key
+      const apiKey = "da5f0ff73ed196206529ae94a2acdd3d";
+
+      // API URL with city, key, and metric units
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
+      try {
+        const response = await fetch(url);
+
+        // Throw error if city not found or API key invalid
+        if (!response.ok) throw new Error("City not found or invalid API key");
+
+        // Parse JSON data
+        const data = await response.json();
+
+        // Change background based on weather condition
+        const weatherMain = data.weather[0].main;
+        setBackground(weatherMain);
+
+        // Weather icon URL
+        const iconUrl = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+
+        // Display weather info in the HTML
+        document.getElementById('weatherResult').innerHTML = `
+          <h3>${data.name}, ${data.sys.country}</h3>
+          <img src="${iconUrl}" alt="Weather Icon" class="weather-icon"/>
+          <p><strong>${data.weather[0].main}</strong> - ${data.weather[0].description}</p>
+          <p>🌡 Temperature: ${data.main.temp}°C</p>
+          <p>💧 Humidity: ${data.main.humidity}%</p>
+          <p>🌬 Wind Speed: ${data.wind.speed} m/s</p>
+        `;
+
+      } catch (error) {
+        // Display error message in the HTML
+        document.getElementById('weatherResult').innerHTML = `<p style="color:red;">${error.message}</p>`;
+      }
+    }
+
+    /**
+     * Change background color based on main weather condition
+     * @param {string} weatherMain - Main weather description from API
+     */
+    function setBackground(weatherMain) {
+      const body = document.body;
+
+      switch(weatherMain.toLowerCase()) {
+        case "clear":
+          body.style.background = "linear-gradient(135deg, #fef253, #ff7300)"; // Sunny
+          break;
+        case "clouds":
+          body.style.background = "linear-gradient(135deg, #d7d2cc, #304352)"; // Cloudy
+          break;
+        case "rain":
+        case "drizzle":
+          body.style.background = "linear-gradient(135deg, #4e54c8, #8f94fb)"; // Rainy
+          break;
+        case "thunderstorm":
+          body.style.background = "linear-gradient(135deg, #141e30, #243b55)"; // Stormy
+          break;
+        case "snow":
+          body.style.background = "linear-gradient(135deg, #83a4d4, #b6fbff)"; // Snowy
+          break;
+        default:
+          body.style.background = "linear-gradient(135deg, #89f7fe, #66a6ff)"; // Default
+      }
+    }
+
+    // Allow pressing Enter key to fetch weather
+    document.getElementById('cityInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') getWeather();
+    });
+  </script>
+
+</body>
+</html>
