@@ -12,7 +12,7 @@
 
 *MENTOR*: NEELA SANTOSH
 
-*Full Stack Web Development Internship at Codec Technologies
+*DESCRIPTION *: Full Stack Web Development Internship at Codec Technologies
 
 During my Full Stack Web Development Internship at Codec Technologies, I gained valuable hands-on experience in developing and deploying full-fledged web applications that combine both frontend and backend technologies. This internship helped me enhance my practical understanding of web architectures, real-time data handling, and browser-based productivity tools. Over the course of my internship, I successfully completed four major projects, all of which are available on my GitHub account to showcase my learning progress and technical skills.
 
@@ -28,4 +28,9 @@ The fourth project was a Chrome Extension for Time Tracking and Productivity Ana
 
 Each of these projects gave me a clear perspective on full stack workflows — from frontend interface design and backend API creation to database management, real-time communication, and deployment. Beyond technical growth, this internship also enhanced my problem-solving, debugging, and collaboration skills. Regular feedback sessions from mentors helped me refine my code quality and improve overall project presentation.
 
-In conclusion, my internship at Codec Technologies was a highly enriching experience that gave me the opportunity to apply theoretical knowledge to real-world applications. Working on diverse projects using modern web technologies helped me build a strong foundation in full stack development and prepared me to take on advanced software engineering challenges with confidence.*
+In conclusion, my internship at Codec Technologies was a highly enriching experience that gave me the opportunity to apply theoretical knowledge to real-world applications. Working on diverse projects using modern web technologies helped me build a strong foundation in full stack development and prepared me to take on advanced software engineering challenges with confidence.
+
+
+*OUTPUT*:
+
+<img width="1920" height="1080" alt="Image" src="https://github.com/user-attachments/assets/16173618-6337-42ac-8313-1eee5f0ef8c8" />
